@@ -1,0 +1,18 @@
+version: '3.9'
+
+services:
+  ml-model-service:
+    build: ml-model-service
+    volumes:
+      - ./ml-model-service:/usr/src/ml-model-service
+    env_file:
+      - .env
+    ports:
+      - ${HOST_PORT}:8000
+    depends_on:
+      - db
+    command: > 
+      uvicorn main:app --host 0.0.0.0 --port 8000 --reload"
+
+volumes:
+  db_data:
